@@ -62,7 +62,7 @@ async function getTokenInformations( token_address, chain ){
 /**
  * Scrape for the pancakeswap pairs between the start_index and the end_index
  */
-async function scrape_pairs( factory, start_index, end_index ){
+async function scrape_pairs( child_id, factory, start_index, end_index ){
     let current_index = start_index;
     while( true ){
         if( end_index > current_index ) { // if there are more tokens now
@@ -71,8 +71,9 @@ async function scrape_pairs( factory, start_index, end_index ){
                 current_index ++; // the increase has to be after the call
             }
         }
-        await sleep(1000) // pause 1000 seconds
+        break;
     }
+    console.log(`THE WORKER ${child_id} HAS DONE HIS JOB. SCRAPED UNTIL INDEX ${end_index}`);
 }
 /**
  * Initialize the scraper that check the latest pair scraped on the db
@@ -109,7 +110,7 @@ async function scrape_pairs_from_latest(){
 
         console.log( `STARTED CHILD: ${i}. WILL SCRAPE FROM PAIR ${start_pair} TO PAIR ${end_pair}`);
        
-        scrape_pairs( factory, start_pair, end_pair )
+        scrape_pairs( child_id, factory, start_pair, end_pair )
     }
 }
 
