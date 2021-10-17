@@ -110,7 +110,7 @@ async function scrape_pairs_from_latest(){
 
         console.log( `STARTED CHILD: ${i}. WILL SCRAPE FROM PAIR ${start_pair} TO PAIR ${end_pair}`);
        
-        scrape_pairs( child_id, factory, start_pair, end_pair )
+        scrape_pairs( i, factory, start_pair, end_pair )
     }
 }
 
